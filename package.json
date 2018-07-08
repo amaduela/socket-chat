@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "0.0.1",
+  "description": "A simple Chat app with Rooms",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js --exec babel-node  -e js",
+    "test": "DEBUG=* nodemon ./index.js --exec babel-node -e js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MozDevelopment"
+  },
+  "author": "larslemos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.17.5",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}

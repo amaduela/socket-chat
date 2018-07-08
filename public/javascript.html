@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>CSS </title>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<style type="text/css">
+			form { padding: 20px; position: fixed; bottom: 0; width: 100%; padding-right: 50px; }
+			#messages { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+			#messages li { padding: 5px 10px; }
+			#messages li:nth-child(odd) { background: #eee; }
+		</style>
+	</head>
+<body>
+	
+<div class="container-fluid">
+	<div class="row">
+		<ul id="messages">	</ul>
+	</div>
+	<div class="row"> 
+		<div class="col-lg-6"> 
+			  <form >
+				<div class="input-group">
+			      <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
+			      <span class="input-group-btn">
+			        <button class="btn btn-primary" type="submit">Send</button>
+			      </span>
+			    </div><!-- /input-group -->
+			  </form>			   
+		</div><!-- /.col-lg-6 --> 
+	</div><!-- /.row -->
+</div> 
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.js"></script>
+		<!-- <script type="text/javascript" src="/js/popper.js"></script> -->
+
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			//assumes to be running on specific server		
+			// const socket = io.connect('http://localhost:3000');
+			// const socket = io();
+			const socket = io('/tech');
+			const room = 'JavaScript';
+
+			//print to the console 
+			// socket.on('message', (data) => {
+			// 	console.log(data);
+			// 	socket.emit('another event', {jeremy: 'I am great thank you'});
+			// });
+ 
+			//use submit event on the form
+			$('form').submit(() => {
+				//
+				let msg = $('#m').val();
+				socket.emit('message', { msg, room});
+				$('#m').val('');
+
+				return false;
+			});
+
+			//
+			socket.on('connect', () => {
+				//emmittin to everybody
+				socket.emit('message', {msg: 'User connected'});
+				socket.emit('join', {room: room});
+			}); 
+
+			//
+			socket.on('message', (msg) => {
+				$('#messages').append($('<li>').text(msg.msg));
+				// $('#messages').append($('<li>').text(msg));
+			});
+		</script>
+
+</body>
+</html>
