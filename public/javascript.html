@@ -1,16 +1,12 @@
 <html>
 	<head>
-		<title>CSS </title>
+		<title>JavaScript </title>
 		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<style type="text/css">
-			form { padding: 20px; position: fixed; bottom: 0; width: 100%; padding-right: 50px; }
-			#messages { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-			#messages li { padding: 5px 10px; }
-			#messages li:nth-child(odd) { background: #eee; }
-		</style>
+		
 	</head>
 <body>
 	
@@ -19,12 +15,12 @@
 		<ul id="messages">	</ul>
 	</div>
 	<div class="row"> 
-		<div class="col-lg-6"> 
+		<div id="chatWrapper" class="col-lg-6"> 
 			  <form >
 				<div class="input-group">
 			      <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
 			      <span class="input-group-btn">
-			        <button class="btn btn-primary" type="submit">Send</button>
+			        <button class="btn btn-primary" type="submit" placeholder="Type something...">Send</button>
 			      </span>
 			    </div><!-- /input-group -->
 			  </form>			   

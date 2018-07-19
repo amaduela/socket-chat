@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title> MozDevelopment Chat </title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<style type="text/css">
-			form { padding: 20px; position: fixed; bottom: 0; width: 100%; padding-right: 50px; }
-			#messages { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-			#messages li { padding: 5px 10px; }
-			#messages li:nth-child(odd) { background: #eee; }
-		</style>
-	</head>
-	<body>
+<head>
+	<title> MozDevelopment Chat </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		
+</head>
+<body >
+	<div class="container">
 		<div class="jumbotron jumbrotron-fluid">
 			<h1 class="display-3">Tech Space chaterr </h1>
 			<p class="lead"> Select which room you'd like to join bellow!!! </p>
 		</div>
 
-		<div class="container-fluid">
+		<div id="nickNameWrapper" class="row">
+			<form  class="input-group">
+			<div class="col-md-6 input-group">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Enter your nickname"> 
+				<span class="input-group-btn">  
+				<button type="submit" class="btn btn-danger"> Register </button>	
+				</span>
+			</div>
+			</div>
+			</form>
+		</div>		
+
+		<div class="userWrapper">
+			<div id="users">
+				Users:
+			</div>
+		</div>
+		
+
+		<div class="row" id="mainWrapper"> 
+		
+		<div class="col-md-4">
 			<div class="row">
 				<ul class="list-group">
 					<a href="/javascript" class="list-group-item">JavaScript</a>
@@ -28,47 +47,75 @@
 			</div>			
 		</div>
 
-		<!-- Bootstrap -->
-		<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
-		<script type="text/javascript" src="/js/bootstrap.js"></script>
-		<!-- <script type="text/javascript" src="/js/popper.js"></script> -->
+		<div class="container-fluid">
+			<div class="row">
+				<ul id="messages">	</ul>
+			</div> 
+		</div>
 
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript">
-			//assumes to be running on specific server		
-			// const socket = io.connect('http://localhost:3000');
-			// const socket = io();
-			const socket = io('/css');
-			const room = 'JavaScript';
+			<div id="chatWrapper" class="col-lg-6"> 
+				  <form >
+					<div class="input-group">
+				      <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
+				      <span class="input-group-btn">
+				        <button class="btn btn-primary" type="submit" placeholder="Type something...">Send</button>
+				      </span>
+				    </div><!-- /input-group -->
+				  </form>			   
+			</div><!-- /.col-lg-6 --> 
 
-			//print to the console 
-			// socket.on('message', (data) => {
-			// 	console.log(data);
-			// 	socket.emit('another event', {jeremy: 'I am great thank you'});
-			// });
- 
-			//use submit event on the form
-			$('form').submit(() => {
-				//
-				let msg = $('#m').val();
-				socket.emit('message', { msg, room});
-				$('#m').val('');
+			<div id="userWrapper">
+				
+			</div>
 
-				return false;
-			});
+		</div><!-- /.row mainWrapper-->
+	</div> 
 
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.js"></script>
+	<!-- <script type="text/javascript" src="/js/popper.js"></script> -->
+
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		//assumes to be running on specific server		
+		// const socket = io.connect('http://localhost:3000');
+		// const socket = io();
+		const socket = io('/css');
+		const room = 'JavaScript';
+
+		//print to the console 
+		// socket.on('message', (data) => {
+		// 	console.log(data);
+		// 	socket.emit('another event', {jeremy: 'I am great thank you'});
+		// });
+
+		var $form = $('form');
+		var $chat = $('#messages');
+		var $message = $('#m');
+
+		//use submit event on the form
+		$form.submit(() => {
 			//
-			socket.on('connect', () => {
-				//emmittin to everybody
-				socket.emit('message', {msg: 'User connected'});
-				socket.emit('join', {room: room});
-			}); 
+			let msg = $message.val();
+			socket.emit('message', { msg, room});
+			$message.val('');
 
-			//
-			socket.on('message', (msg) => {
-				$('#messages').append($('<li>').text(msg.msg));
-				// $('#messages').append($('<li>').text(msg));
-			});
-		</script>
-	</body>
+			return false;
+		});
+
+		//
+		socket.on('connect', () => {
+			//emmittin to everybody
+			socket.emit('message', {msg: 'User connected'});
+			socket.emit('join', {room: room});
+		}); 
+
+		//
+		socket.on('message', (msg) => {
+			$chat.append($('<li>').text(msg.msg));
+			// $('#messages').append($('<li>').text(msg));
+		});
+	</script>
+</body>
 </html>  
