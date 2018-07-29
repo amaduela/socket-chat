@@ -1,4 +1,7 @@
-
+/* override */
+.jumbotron {
+	border-radius: none;
+}
 form { 
 	padding: 20px; 
 	position: fixed; 
