@@ -9,6 +9,23 @@ gulp.task('bootstrap', function() {
 	  .pipe(gulp.dest(('src/less/bootstrap/')));
 });
 
+gulp.task('jquery', function() {
+	return gulp.src('./node_modules/jquery/**/**')
+	  .pipe(gulp.dest(('src/js/jquery/')));
+});
+
+gulp.task('bootjs', function() {
+	return gulp.src('./node_modules/bootstrap/dist/js/bootstrap.min.js')
+		.pipe(sourcemaps.init())
+		.pipe(sourcemaps.write('.'))
+		.pipe(gulp.dest(('public/js/')));
+});
+
+gulp.task('jqdist', function() {
+	return gulp.src(['./src/js/jquery/dist/jquery.min.js', 'src/js/jquery/dist/jquery.min.map'])
+	  .pipe(gulp.dest(('./public/js/')));
+});
+
 gulp.task('less', function () {
 	gulp.src('src/less/*.less')
 		.pipe(sourcemaps.init())
