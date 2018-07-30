@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
-var cssnano = require('gulp-cssnano');
+var minifycss = require('gulp-clean-css');
 var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('bootstrap', function() {
@@ -28,14 +28,13 @@ gulp.task('jqdist', function() {
 
 gulp.task('less', function () {
 	gulp.src('./src/less/*.less')
-		.pipe(sourcemaps.init())
 		.pipe(less())
-		.pipe(cssnano())
+		.pipe(sourcemaps.init())
+		.pipe(minifycss())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('listen', function() {
 	gulp.watch('src/less/**/*.less', ['less']);
-	gulp.watch('src/js/*.js', ['js']);
 });
