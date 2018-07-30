@@ -1,75 +1,109 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>CSS </title>
-		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<style type="text/css" src="css/style.css">
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
 	</head>
 <body>
-	
-<div class="container-fluid">
-	<div class="row">
-		<ul id="messages">	</ul>
-	</div>
-	<div class="row"> 
-		<div class="col-lg-6"> 
-			  <form >
-				<div class="input-group">
-			      <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
-			      <span class="input-group-btn">
-			        <button class="btn btn-primary" type="submit">Send</button>
-			      </span>
-			    </div><!-- /input-group -->
-			  </form>			   
-		</div><!-- /.col-lg-6 --> 
-	</div><!-- /.row -->
-</div> 
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<div id="live-chat">
+					<header>
+						<h4 class="title">CHANNELS</h4>
+					</header>
+					<div class="chat">
+						<div class="chat-history">
+							<ul class="list-group">
+								<a href="/javascript" class="list-group-item">JavaScript</a>
+								<a href="/css3" class="list-group-item">CSS</a>
+								<a href="/html" class="list-group-item">HTML</a> 
+							</ul>
+						</div> <!-- end chat-history -->
+					</div> <!-- end chat -->
+				</div> <!-- end live-chat -->
+			</div>
+			<div class="col-md-6">
+				<div id="live-chat">
+					<header>
+						<h4 class="title live">CSS</h4>
+					</header>
+					<div class="chat">
+						<div id="messages" class="chat-history">
+							<!-- the messages inside here -->
+						</div> <!-- end chat-history -->
+						<form>
+							<div class="input-group">
+								<input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="submit">Send</button>
+								</span>
+							</div><!-- /input-group -->
+						</form>
+					</div> <!-- end chat -->
+				</div> <!-- end live-chat -->
+			</div>
+			<div class="col-md-3">
+			</div>
+		</div><!-- /.row -->
+	</div> 
 
-		<!-- Bootstrap -->
-		<script type="text/javascript" src="/js/jquery-3.1.1.js"></script>
-		<script type="text/javascript" src="/js/bootstrap.js"></script>
-		<!-- <script type="text/javascript" src="/js/popper.js"></script> -->
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-		<script type="text/javascript">
-			//assumes to be running on specific server		
-			// const socket = io.connect('http://localhost:3000');
-			// const socket = io();
-			const socket = io('/tech');
-			const room = 'CSS';
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		//assumes to be running on specific server		
+		// const socket = io.connect('http://localhost:3000');
+		// const socket = io();
+		const socket = io('/tech');
+		const room = 'CSS';
 
-			//print to the console 
-			// socket.on('message', (data) => {
-			// 	console.log(data);
-			// 	socket.emit('another event', {jeremy: 'I am great thank you'});
-			// });
- 
-			//use submit event on the form
-			$('form').submit(() => {
-				//
-				let msg = $('#m').val();
-				socket.emit('message', { msg, room});
-				$('#m').val('');
+		//print to the console 
+		// socket.on('message', (data) => {
+		// 	console.log(data);
+		// 	socket.emit('another event', {jeremy: 'I am great thank you'});
+		// });
 
-				return false;
-			});
-
+		//use submit event on the form
+		$('form').submit(() => {
 			//
-			socket.on('connect', () => {
-				//emmittin to everybody
-				socket.emit('message', {msg: 'User connected'});
-				socket.emit('join', {room: room});
-			}); 
+			let msg = $('#m').val();
+			socket.emit('message', { msg, room});
+			$('#m').val('');
 
-			//
-			socket.on('message', (msg) => {
-				$('#messages').append($('<li>').text(msg.msg));
-				// $('#messages').append($('<li>').text(msg));
-			});
-		</script>
+			return false;
+		});
 
+		//
+		socket.on('connect', () => {
+			//emmittin to everybody
+			socket.emit('message', {msg: 'User connected'});
+			socket.emit('join', {room: room});
+		}); 
+
+		//
+		socket.on('message', (msg) => {
+			// $('#messages').append($('<li>').text(msg.msg));
+			// $('#messages').append($('<li>').text(msg));
+			$('#messages').append($('<div class="chat-message">'+
+				'<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">'+
+				'<div class="chat-message-content ">'+
+					'<span class="chat-time">13:35</span>'+
+					'<h5>John Doe</h5>'+
+					'<p>'+msg.msg+'</p>'+
+				'</div>'+
+			'</div>'));
+			var divm = $('#messages');
+			divm.animate({
+				scrollTop: divm.prop("scrollHeight")},
+				'slow', function() {
+				/* stuff to do after animation is complete */
+			});;
+		});
+	</script>
 </body>
 </html>
