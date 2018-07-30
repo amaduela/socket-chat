@@ -27,10 +27,15 @@ gulp.task('jqdist', function() {
 });
 
 gulp.task('less', function () {
-	gulp.src('src/less/*.less')
+	gulp.src('./src/less/*.less')
 		.pipe(sourcemaps.init())
 		.pipe(less())
 		.pipe(cssnano())
-		.pipe(sourcemaps.write('.'))
-		.pipe(gulp.dest('public/css/'));
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('./public/css'));
+});
+
+gulp.task('listen', function() {
+	gulp.watch('src/less/**/*.less', ['less']);
+	gulp.watch('src/js/*.js', ['js']);
 });
