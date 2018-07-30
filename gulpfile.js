@@ -27,7 +27,7 @@ gulp.task('jqdist', function() {
 });
 
 gulp.task('less', function () {
-	gulp.src('./src/less/*.less')
+	gulp.src('./src/less/style.less')
 		.pipe(less())
 		.pipe(sourcemaps.init())
 		.pipe(minifycss())
