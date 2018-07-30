@@ -4,7 +4,6 @@
 	<title> MozDevelopment Chat </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css"> 
 		
 </head>
@@ -15,16 +14,16 @@
 			<p class="lead"> Select which room you'd like to join bellow!!! </p>
 		</div>
 
-		<div id="nickNameWrapper" class="row">
+		<div id="nickNameWrapper">
 			<form  class="input-group">
-			<div class="col-md-6 input-group">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Enter your nickname"> 
-				<span class="input-group-btn">  
-				<button type="submit" class="btn btn-danger"> Register </button>	
-				</span>
-			</div>
-			</div>
+				<div class="col-md-6 input-group">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Enter your nickname"> 
+						<span class="input-group-btn">  
+						<button type="submit" class="btn btn-danger"> Register </button>	
+						</span>
+					</div>
+				</div>
 			</form>
 		</div>		
 
@@ -35,46 +34,20 @@
 		</div>
 		
 
-		<div class="row" id="mainWrapper"> 
-		
-		<div class="col-md-4">
-			<div class="row">
+		<div class="row"> 
+			<div class="col-md-4">
 				<ul class="list-group">
 					<a href="/javascript" class="list-group-item">JavaScript</a>
 					<a href="/css3" class="list-group-item">CSS</a>
 					<a href="/html" class="list-group-item">HTML</a> 
 				</ul>	
-			</div>			
-		</div>
-
-		<div class="container-fluid">
-			<div class="row">
-				<ul id="messages">	</ul>
-			</div> 
-		</div>
-
-			<div id="chatWrapper" class="col-lg-6"> 
-				  <form >
-					<div class="input-group">
-				      <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..." aria-label="Message...">
-				      <span class="input-group-btn">
-				        <button class="btn btn-primary" type="submit" placeholder="Type something...">Send</button>
-				      </span>
-				    </div><!-- /input-group -->
-				  </form>			   
-			</div><!-- /.col-lg-6 --> 
-
-			<div id="userWrapper">
-				
 			</div>
-
 		</div><!-- /.row mainWrapper-->
 	</div> 
 
 	<!-- Bootstrap -->
 	<script type="text/javascript" src="/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
-	<!-- <script type="text/javascript" src="/js/popper.js"></script> -->
 
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
